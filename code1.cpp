@@ -222,6 +222,12 @@ struct Info_KI *L_Parse(int number)
     struct Statment *s_stat = Parse(number);
     struct UL ULH = GetVaildItems(s_stat);   
     struct Info_KI *info = GetInfo(ULH);
+    free(s_stat);
+    ULH.Len = -1;
+    free(ULH.stat);
+    s_stat = NULL;
+    ULH.stat = NULL;
+    ULH = NULL;
     return info;
 }
 
