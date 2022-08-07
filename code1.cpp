@@ -212,7 +212,6 @@ struct Info_KI *GetInfo(struct UL input)
     ULK.Len = -1;
     free(ULK.stat);
     ULK.stat = NULL;
-    ULK = NULL;
     return m;
 }
 
@@ -236,7 +235,6 @@ struct Info_KI *L_Parse(int number)
     free(ULH.stat);
     s_stat = NULL;
     ULH.stat = NULL;
-    ULH = NULL;
     return info;
 }
 
