@@ -301,7 +301,7 @@ LL binaryPow_r(LL a, LL b)
             ans = ans * a;
         }
         a = a * a;
-        b >> 1;
+        b = b >> 1;
     }
     return ans;
 }
