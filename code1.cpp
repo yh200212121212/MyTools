@@ -108,6 +108,7 @@ void Swap(struct Statment *a, struct Statment *b)
     struct Statment tmp = *a;
     (*a).i = (*b).i;
     (*a).OP_Code = (*b).OP_Code;
+    //Dont swap the field next,it will be write later.If swap that,it will be an invaild point of the struct Statment.
     //(*a).next = (*b).next;
     //(*b).next = tmp.next;
     (*b).i = tmp.i;
@@ -144,7 +145,7 @@ struct UL Revers(struct UL *input)
     }
     for(int i = 0; i < l; i++)
     {
-        stat2[i].next = i + 1 == l ? 0 : &(stat2[i + 1]);
+        stat2[i].next = i + 1 == l ? 0 : &(stat2[i + 1]);//Set field next here.When stat2[i] is the last one,it's next is a null pointer and won't use field next,use itself instead.
         //printf("%d-%d-%p\n",i,l - 1,stat2[i].next);
     }
     struct UL ULH;
@@ -189,7 +190,7 @@ struct Info_KI *GetInfo(struct UL input)
     int *LR_ALL = (int *)malloc(sizeof(int) * ULK.Len), k = 0;
     struct Statment *R_stat, R_stmp;
     R_stat = ULK.stat;
-    for(R_stmp = R_stat[0] ; k < ULK.Len ; R_stmp = R_stmp.next == 0 ? R_stmp : *(R_stmp.next))
+    for(R_stmp = R_stat[0] ; k < ULK.Len ; R_stmp = (R_stmp.next == 0 ? R_stmp : *(R_stmp.next))) //use field next to goto next item.
     {
         if(k > ULK.Len){ break; }
         LR_ALL[k] = (int)(R_stmp.OP_Code);
