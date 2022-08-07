@@ -129,14 +129,14 @@ struct UL Revers(struct UL *input)
            s = l / 2; 
            for(j = 0; j < s; j++)
            {
-                Swap(&stat2[t - j],&stat2[j]);
+                Swap(&stat2[t - j], &stat2[j]);
            }
            break;
         case 1:
            s = t / 2; 
            for(j = 0; j < s; j++)
            {
-                Swap(&stat2[t - j],&stat2[j]);
+                Swap(&stat2[t - j], &stat2[j]);
            }
            break;
         default:
@@ -150,6 +150,7 @@ struct UL Revers(struct UL *input)
     struct UL ULH;
     ULH.Len = (*input).Len;
     ULH.stat = stat2;
+    free(stat3);
     return ULH;
 }
 
@@ -204,6 +205,10 @@ struct Info_KI *GetInfo(struct UL input)
     }
     m->Revers = ins_r;
     //m->Revers = 5;
+    ULK.Len = -1;
+    free(ULK.stat);
+    ULK.stat = NULL;
+    ULK = NULL;
     return m;
 }
 
