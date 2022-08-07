@@ -28,14 +28,17 @@ struct Statment
     struct Statment *next;
 };
 
+//Init struct Statment element into struct Statment array to default(invaild) value.
 void Init(struct Statment **input, int Len)
 {
+    struct Statment *input_r = *input, element;
     int i;
     for(i = 0; i < Len; i++)
     {
-        ((*input)[i]).i = -1;
-        ((*input)[i]).OP_Code = Invaild;
-        ((*input)[i]).next = 0;
+        element = input_r[i];
+        element.i = -1;
+        element.OP_Code = Invaild;
+        element.next = 0;
     }
 }
 
@@ -159,7 +162,7 @@ struct UL Revers(struct UL *input)
            }
            break;
         default:
-        break;
+           break;
     }
     int i;
     for(i = 0; i < l; i++)
@@ -170,6 +173,8 @@ struct UL Revers(struct UL *input)
     struct UL ULH;
     ULH.Len = (*input).Len;
     ULH.stat = stat2;
+    free(stat3);
+    stat3 = NULL;
     return ULH;
 }
 
@@ -209,7 +214,7 @@ struct Info_KI *GetInfo(struct UL input)
     int *LR_ALL = (int *)malloc(sizeof(int) * ULK.Len), k = 0;
     struct Statment *R_stat, R_stmp;
     R_stat = ULK.stat;
-    for(R_stmp = R_stat[0] ; k < ULK.Len ; R_stmp = R_stmp.next == 0 ? R_stmp : *(R_stmp.next))
+    for(R_stmp = R_stat[0] ; k < ULK.Len ; R_stmp = (R_stmp.next == 0 ? R_stmp : *(R_stmp.next)))
     {
         if(k > ULK.Len){ break; }
         LR_ALL[k] = (int)(R_stmp.OP_Code);
@@ -225,6 +230,8 @@ struct Info_KI *GetInfo(struct UL input)
     }
     m->Revers = ins_r;
     //m->Revers = 5;
+    ULK.Len = -1;
+    free(ULK.stat);
     return m;
 }
 
@@ -246,6 +253,8 @@ struct Info_KI *L_Parse(int number)
     free(s_stat);
     ULH.Len = -1;
     free(ULH.stat);
+    s_stat = NULL;
+    ULH.stat = NULL;
     return info;
 }
 
