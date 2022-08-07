@@ -124,6 +124,8 @@ struct UL Revers(struct UL *input)
     int j, s, l = (*input).Len, t = l - 1;
     memmove(stat2, stat1, sizeof(struct Statment) * (*input).Len);
     int code = l % 2;
+    //1 2 3 4 5 -> 5 2 3 4 1 -> 5 4 3 2 1
+    //1 0 5 8 -> 8 0 5 1 -> 8 5 0 1
     switch(code)
     {
         case 0:
@@ -141,11 +143,12 @@ struct UL Revers(struct UL *input)
            }
            break;
         default:
-        break;
+           break;
     }
     for(int i = 0; i < l; i++)
     {
-        stat2[i].next = i + 1 == l ? 0 : &(stat2[i + 1]);//Set field next here.When stat2[i] is the last one,it's next is a null pointer and won't use field next,use itself instead.
+        //Set field next here.When stat2[i] is the last one,it's next is a null pointer and won't use field next,use itself instead.
+        stat2[i].next = i + 1 == l ? 0 : &(stat2[i + 1]);
         //printf("%d-%d-%p\n",i,l - 1,stat2[i].next);
     }
     struct UL ULH;
